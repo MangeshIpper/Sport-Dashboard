@@ -1,0 +1,39 @@
+.topbarContainer {
+  height: 50px;
+  width: 100%;
+  background-color: #7e18f2;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 24px;
+  margin-left: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.topbarRight {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+.topbarImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
