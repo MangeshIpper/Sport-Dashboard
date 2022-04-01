@@ -6,7 +6,7 @@ function Topbar() {
     <div className="topbarContainer">
       <div className="topbarCenter">
         <span className="logo">
-          <a href="/">Dashboard</a>
+          <a href="/">SportDashboard</a>
         </span>
       </div>
       <div className="topbarRight">
