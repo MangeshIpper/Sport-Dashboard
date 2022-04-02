@@ -1,6 +1,8 @@
 import "./home.css";
 import { react, useEffect, useState } from "react";
 import axios from "axios";
+import EventTable from "../../components/eventTable/EventTable";
+import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 
 function Home() {
   const [data, setdata] = useState();
@@ -23,8 +25,16 @@ function Home() {
 
   return (
     <div className="home">
-      <h1>Home Page</h1>
-      <div className="homeWidgets">Welcome to home page</div>
+      {data ? (
+        <>
+          <FeaturedInfo total={data.total} perPage={data["per-page"]} />
+          <div className="homeWidgets">
+            <EventTable data={data} />
+          </div>{" "}
+        </>
+      ) : (
+        <h1>Data not available</h1>
+      )}
     </div>
   );
 }

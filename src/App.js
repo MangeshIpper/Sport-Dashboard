@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Topbar />
-      <div className="container">
+      <div className="mainContainer">
         <Sidebar />
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
