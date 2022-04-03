@@ -1,15 +1,28 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./eventTable.css";
-import { Button, Card, Table } from "react-bootstrap";
+import { compareAsc, format } from "date-fns";
+import { Button, Card, Table, Modal } from "react-bootstrap";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { compareAsc, format } from "date-fns";
+import EventModal from "../eventModal/EventModal";
 
 function EventTable(props) {
   const [events, setEvents] = useState(props.data.events);
   const [order, setOrder] = useState("ASC");
+  const [meta, setMeta] = useState();
   const [colName, setColName] = useState();
+  const [show, setShow] = useState(false);
+  const [dataShow, setDataShow] = useState();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    props.data.events.forEach((val) => {
+      setMeta(val["meta-tags"]);
+    });
+  }, []);
 
   const onSortChange = (col) => {
     setColName(col);
@@ -38,10 +51,18 @@ function EventTable(props) {
     }
   };
 
+  const showData = (obj) => {
+    handleShow();
+    if(obj){
+      setDataShow(obj);
+    }
+  }
+
+
   return (
     <>
-      <Card className="w-100">
-        <Card.Header as="h5">Event Data</Card.Header>
+      <Card className="w-100 cardBox">
+        <Card.Header as="h3">Event Data</Card.Header>
         <Card.Body>
           <Table className="table table-bordered" hover>
             <thead>
@@ -87,7 +108,7 @@ function EventTable(props) {
                     <td>{item.status}</td>
                     <td>{item.volume}</td>
                     <td>
-                      <Button variant="info">
+                      <Button onClick={(e)=>{showData(item)}}>
                         <VisibilityIcon />
                       </Button>
                     </td>
@@ -104,6 +125,20 @@ function EventTable(props) {
           </Table>
         </Card.Body>
       </Card>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+      >
+        <EventModal data={dataShow}/>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

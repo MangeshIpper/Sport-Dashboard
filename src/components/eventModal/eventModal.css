@@ -1,0 +1,32 @@
+.eventModalHeading {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 15px;
+}
+
+.searchbar {
+    width: 50%;
+    height: 30px;
+    background-color: rgb(232 234 222 / 86%);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  }
+  
+  .searchIcon {
+    font-size: 20px !important;
+    margin-left: 10px;
+  }
+  
+  .searchInput {
+    border: none;
+    width: 85%;
+  }
+  
+  .searchInput:focus {
+    outline: none;
+  }
