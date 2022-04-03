@@ -11,7 +11,6 @@ function FeaturedInfo(props) {
     try{
       const response = await axios.get("/edge/rest/locale?ip=80.103.151.136");
       if(response){
-        console.log(response.data);
         setLocation(response.data);
       }
     }catch(error){
@@ -38,7 +37,7 @@ function FeaturedInfo(props) {
       <div className="featuredItem">
         <Button className="featuredTitle" onClick={getLocation}>Get Location</Button>
         <div className="featuredContainer">
-          <span className="featured">{location.country ? location.country : ""}{" "}{location.currency? location.currency :""}</span>
+          <span className="featured">{location ? location.country : ""}{" "}{location? location.currency :""}</span>
         </div>
       </div>
     </div>
