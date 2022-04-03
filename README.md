@@ -8,8 +8,6 @@ It is a dashboard that visualizes sport data such as the games/matches/events av
 1. [Objective](#section1)<br>
 2. [Importing Packages](#section2)<br>
 3. [UI view for Desktop and Mobile view](#section3)<br>
- - 3.1 [UI for Desktop View](#section301)<br>
-  - 3.2 [UI for Mobile view](#section302)<br>
 
 
   ## 1. Objective <a id=section1></a>
