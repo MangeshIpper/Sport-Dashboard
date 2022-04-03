@@ -18,7 +18,7 @@ function Sidebar() {
             </Link>
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
-              Analytics
+              Sales
             </li>
           </ul>
         </div>
