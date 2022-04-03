@@ -37,7 +37,7 @@ function FeaturedInfo(props) {
       <div className="featuredItem">
         <Button className="featuredTitle" onClick={getLocation}>Get Location</Button>
         <div className="featuredContainer">
-          <span className="featured">{location ? location.country : ""}{" "}{location? location.currency :""}{"\u20A0"}</span>
+          <span className="featured">{location ? location.country : ""}{" "}{location? location.currency :""}</span>
         </div>
       </div>
     </div>

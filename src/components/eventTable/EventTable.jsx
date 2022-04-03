@@ -22,9 +22,7 @@ function EventTable(props) {
   useEffect(() => {
     const getCurrency = async () => {
       try {
-        const response = await axios.get(
-          "/bpapi/rest/lookups/currencies"
-        );
+        const response = await axios.get("/bpapi/rest/lookups/currencies");
         if (response) {
           setCurrency(response.data.currencies);
         }
@@ -69,6 +67,11 @@ function EventTable(props) {
     }
   };
 
+  const handleCurrencyData = (e) => {
+    let currencyEvent = e.target.value;
+    console.log("currencyEvent", currencyEvent);
+  };
+
   return (
     <>
       <Card className="w-100 cardBox">
@@ -76,13 +79,15 @@ function EventTable(props) {
         <Card.Body>
           <div className="outer">
             <div className="inner">
-              <Form.Select id="">
-              <option>Select Currency</option>
-                {
-                  currency? currency.map((item, index) => (
-                    <option value={item["short-name"]} key={index}>{item["short-name"]}</option>
-                  )): "" 
-                }
+              <Form.Select onChange={handleCurrencyData}>
+                <option value="">Select Currency</option>
+                {currency
+                  ? currency.map((item, index) => (
+                      <option value={item["short-name"]} key={index}>
+                        {item["short-name"]}
+                      </option>
+                    ))
+                  : ""}
               </Form.Select>
             </div>
           </div>
