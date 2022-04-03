@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import "./eventTable.css";
 import { compareAsc, format } from "date-fns";
-import { Button, Card, Table, Modal } from "react-bootstrap";
+import { Button, Card, Table, Modal, Form } from "react-bootstrap";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import EventModal from "../eventModal/EventModal";
+import axios from "axios";
 
 function EventTable(props) {
   const [events, setEvents] = useState(props.data.events);
   const [order, setOrder] = useState("ASC");
-  const [meta, setMeta] = useState();
+  const [currency, setCurrency] = useState();
   const [colName, setColName] = useState();
   const [show, setShow] = useState(false);
   const [dataShow, setDataShow] = useState();
@@ -19,9 +20,19 @@ function EventTable(props) {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    props.data.events.forEach((val) => {
-      setMeta(val["meta-tags"]);
-    });
+    const getCurrency = async () => {
+      try {
+        const response = await axios.get(
+          "/bpapi/rest/lookups/currencies"
+        );
+        if (response) {
+          setCurrency(response.data.currencies);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+    getCurrency();
   }, []);
 
   const onSortChange = (col) => {
@@ -53,17 +64,29 @@ function EventTable(props) {
 
   const showData = (obj) => {
     handleShow();
-    if(obj){
+    if (obj) {
       setDataShow(obj);
     }
-  }
-
+  };
 
   return (
     <>
       <Card className="w-100 cardBox">
         <Card.Header as="h3">Event Data</Card.Header>
         <Card.Body>
+          <div className="outer">
+            <div className="inner">
+              <Form.Select id="">
+              <option>Select Currency</option>
+                {
+                  currency? currency.map((item, index) => (
+                    <option value={item["short-name"]} key={index}>{item["short-name"]}</option>
+                  )): "" 
+                }
+              </Form.Select>
+            </div>
+          </div>
+
           <Table className="table table-bordered" hover>
             <thead>
               <tr>
@@ -108,7 +131,11 @@ function EventTable(props) {
                     <td>{item.status}</td>
                     <td>{item.volume}</td>
                     <td>
-                      <Button onClick={(e)=>{showData(item)}}>
+                      <Button
+                        onClick={(e) => {
+                          showData(item);
+                        }}
+                      >
                         <VisibilityIcon />
                       </Button>
                     </td>
@@ -130,9 +157,9 @@ function EventTable(props) {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        size="lg"
+        size="xl"
       >
-        <EventModal data={dataShow}/>
+        <EventModal data={dataShow} />
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
